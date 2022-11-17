@@ -16,7 +16,8 @@ def start_server():
             print(data)
             if data.split()[0] == "GET":
                 content = load_page_from_get_request(data)
-                client_socket.send(content)
+                # client_socket.send(content)
+                client_socket.send(b'HTTP/1.1 301 Moved Permanently\nLocation: https://www.google.com/')
                 client_socket.shutdown(socket.SHUT_WR)
     except KeyboardInterrupt:
         server.close()
