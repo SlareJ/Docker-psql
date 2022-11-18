@@ -14,6 +14,8 @@ def start_server():
             print('Working...')
             data = client_socket.recv(1024).decode('utf-8')
             print(data)
+            if len(data.split()) < 2:
+                return None
             if data.split()[1] == "/" or data.split()[1] == "/favicon.ico":
                 content = load_page_from_get_request(data)
                 client_socket.send(content)
