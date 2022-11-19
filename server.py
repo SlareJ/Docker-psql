@@ -16,11 +16,16 @@ def start_server():
             print(data)
             if len(data.split()) < 2:
                 return None
-            if data.split()[1] == "/" or data.split()[1] == "/favicon.ico":
+            if data.split()[0] == "POST":
+                str = data.split()[-1]
+                url = str[9:str.find(",") - 1]
+                print("SADASDSADASDSA")
+                tinyurl = tiny(url)
+                client_socket.send(HDRS.encode("utf-8") + f"127.0.0.1:2003/{tinyurl}".encode("utf-8"))
+            elif data.split()[1] == "/" or data.split()[1] == "/favicon.ico":
                 content = load_page_from_get_request(data)
                 client_socket.send(content)
                 # client_socket.send(b'HTTP/1.1 301 Moved Permanently\nLocation: https://www.google.com/')
-                client_socket.shutdown(socket.SHUT_WR)
             elif data.split()[1][1] == "?":
                 data = data.split()[1]
                 link = data[7:]
@@ -29,9 +34,8 @@ def start_server():
             else:
                 data = data.split()[1][1:]
                 url = long(data)
-                client_socket.send(f'HTTP/1.1 301 Moved Permanently\nLocation: https://www.{url}/'.encode('utf-8'))
-
-
+                client_socket.send(f'HTTP/1.1 301 Moved Permanently\nLocation: //{url}'.encode('utf-8'))
+            client_socket.shutdown(socket.SHUT_WR)
     except KeyboardInterrupt:
         server.close()
         print("Closing...")

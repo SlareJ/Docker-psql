@@ -53,6 +53,7 @@ def long(tiny_link):
     if long is not None:
         return long[0]
 
+
 if __name__ == "__main__":
     tiny_link = input()
     print(long(tiny_link))
