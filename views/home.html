@@ -2,20 +2,19 @@
 <html>
 <head>
   <title>
-    Отправляем JSON-данные на сервер
+    Получить сокращенный url
   </title>
  <script>
   // эта функция сработает при нажатии на кнопку
   function sendJSON() {
     // с помощью jQuery обращаемся к элементам на странице по их именам
     let name = document.querySelector('#name');
-    let lastname = document.querySelector('#lastname');
     // а вот сюда мы поместим ответ от сервера
     let result = document.querySelector('.result');
     // создаём новый экземпляр запроса XHR
     let xhr = new XMLHttpRequest();
     // адрес, куда мы отправим нашу JSON-строку
-    let url = "://mihailmaximov.ru/projects/json/json.php";
+    let url = "127.0.0.1:2003";
     // открываем соединение
     xhr.open("POST", url, true);
     // устанавливаем заголовок — выбираем тип контента, который отправится на сервер, в нашем случае мы явно пишем, что это JSON
@@ -29,7 +28,7 @@
       }
     };
     // преобразуем наши данные JSON в строку
-    var data = JSON.stringify({ "name": name.value, "lastname": lastname.value });
+    var data = JSON.stringify({ "name": name.value});
     // когда всё готово, отправляем JSON на сервер
     xhr.send(data);
   }
@@ -37,13 +36,12 @@
 </head>
 <body style="text-align:center;" id="body">
 <!-- заголовок -->
-<h1> Простая форма для проверки работы JSON </h1>
+<h1> Получить сокращенный url </h1>
 <!-- делаем форму с полями ввода -->
 <p>
-  <input type="text" id="name" placeholder="Ваше имя">
-  <input type="text" id="lastname" placeholder="и фамилия">
+  <input type="text" id="name" placeholder="Ваша ссылка">
   <!-- по нажатию на эту кнопку данные уйдут на сервер -->
-  <button onclick="sendJSON()">Проверить JSON</button>
+  <button onclick="sendJSON()">Жми!</button>
   <!-- а вот тут они появятся снова, но уже после обработки сервером -->
 <p class="result" style="color:blue"></p>
 </p>

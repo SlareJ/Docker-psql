@@ -19,7 +19,6 @@ def start_server():
             if data.split()[0] == "POST":
                 str = data.split()[-1]
                 url = str[9:str.find(",") - 1]
-                print("SADASDSADASDSA")
                 tinyurl = tiny(url)
                 client_socket.send(HDRS.encode("utf-8") + f"127.0.0.1:2003/{tinyurl}".encode("utf-8"))
             elif data.split()[1] == "/" or data.split()[1] == "/favicon.ico":
